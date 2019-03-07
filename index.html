@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+
+			.button {
+				background: pink;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: 1.4rem;
+				left: 50%;
+				margin-top: 100px;
+				outline: none;
+				padding: 1rem 3rem;
+				position: absolute;
+				transform: translateX(-50%);
+				transition: background .2s linear;
+			}
+			.button:hover {
+				background: hotpink;
+				transition: background .2s linear;
+			}
+		</style>
+	</head>
+	<body>
+		<button class="button">Create donut</button>
+		<canvas id="myCanvas"></canvas>
+		<script src="js/three.js"></script>
+		<script>
+
+			var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('myCanvas'), antialias: true });
+
+			// RENDER
+			renderer.setClearColor(0x222222);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+			//CAMERA
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000);
+			camera.position.set(0, 0, 0);
+
+			//SCENE
+			var scene = new THREE.Scene();
+
+			//LIGHTS
+			var light = new THREE.AmbientLight(0xffffff, 0.5);
+			scene.add(light);
+
+			var light2 = new THREE.DirectionalLight(0xffffff, .5);
+			light2.position.set(-250, 500, 150);
+			scene.add(light2);
+
+			var light3 = new THREE.PointLight(0xffffff, .5);
+			light3.position.set(-250, -150, 50);
+			scene.add(light3);
+
+			var light4 = new THREE.PointLight(0xffffff, 1);
+			light4.position.set(1000, 1000, 100);
+			scene.add(light4);
+
+			//GEOMETRY
+			function donut(color, posX, posY, posZ) {
+				var donut = new THREE.TorusGeometry(200, 100, 100, 100);
+				donutMaterial = new THREE.MeshPhysicalMaterial( {
+						map: null,
+						color: color,
+						metalness: 0.0,
+						roughness: 0,
+						opacity: 1,
+						transparent: false,
+						envMapIntensity: 5,
+						premultipliedAlpha: true,
+						clearCoat: 1.0,
+						reflectivity: 1.0
+					} );
+
+				var donutMesh = new THREE.Mesh(donut, donutMaterial);
+				donutMesh.position.set(posX, posY, posZ);
+
+				// ADD TO SCENE
+				scene.add(donutMesh);
+
+				//RENDER LOOP
+				requestAnimationFrame(render);
+
+				function render() {
+					donutMesh.rotation.x += 0.01;
+					donutMesh.rotation.y += 0.01;
+					renderer.render(scene, camera);
+					requestAnimationFrame(render);
+				}
+			}
+
+
+			const button = document.querySelector('.button');
+
+			button.addEventListener('click', function() {
+				let posX = Math.floor((Math.random() * 1999) - 999);
+				let posY = Math.floor((Math.random() * 1999) - 999);
+				let posZ = Math.floor((Math.random() * -2500) - 1000);
+
+				donut(0xff00ff, posX, posY, posZ);
+			});
+
+
+			// for (item of donuts) {
+			// 	donut(item.color, item.x, item.y, item.z);
+			// }
+			// const donuts = [
+			// 	{
+			// 		color: 0xFF45A9,
+			// 		x: 300,
+			// 		y: 100,
+			// 		z: -1000
+			// 	},
+			// 	{
+			// 		color: 0x87E700,
+			// 		x: -500,
+			// 		y: -50,
+			// 		z: -1200
+			// 	},
+			// 	{
+			// 		color: 0x87E7FF,
+			// 		x: 0,
+			// 		y: -200,
+			// 		z: -2000
+			// 	},
+			// 	{
+			// 		color: 0xff0000,
+			// 		x: -50,
+			// 		y: 400,
+			// 		z: -2100
+			// 	},
+			// 	{
+			// 		color: 0x0000ff,
+			// 		x: 350,
+			// 		y: -500,
+			// 		z: -2400
+			// 	},
+			// 	{
+			// 		color: 0xff00ff,
+			// 		x: -450,
+			// 		y: 500,
+			// 		z: -2600
+			// 	}
+			// ];
+
+
+		</script>
+	</body>
+</html>
