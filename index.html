@@ -2,7 +2,9 @@
 <html>
 	<head>
 		<meta charset=utf-8>
-		<title>My first three.js app</title>
+		<title>DONUTS</title>
+		<link rel="shortcut icon" type="image/png" href="images/donut.png"/>
+
 		<style>
 			body { margin: 0; }
 
@@ -13,11 +15,11 @@
 				cursor: pointer;
 				font-size: 1.4rem;
 				left: 50%;
-				margin-top: 100px;
+				top: 50%;
 				outline: none;
 				padding: 1rem 3rem;
 				position: absolute;
-				transform: translateX(-50%);
+				transform: translate(-50%, -50%);
 				transition: background .2s linear;
 			}
 			.button:hover {
@@ -35,12 +37,12 @@
 			var renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('myCanvas'), antialias: true });
 
 			// RENDER
-			renderer.setClearColor(0x222222);
+			renderer.setClearColor('#'+Math.floor(Math.random()*16777215).toString(16));
 			renderer.setPixelRatio(window.devicePixelRatio);
 			renderer.setSize(window.innerWidth, window.innerHeight);
 
 			// CAMERA
-			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000);
+			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 10000);
 			camera.position.set(0, 0, 0);
 
 			// SCENE
@@ -75,7 +77,7 @@
 						envMapIntensity: 5,
 						premultipliedAlpha: true,
 						clearCoat: 1.0,
-						reflectivity: 1.0
+						reflectivity: 1
 					} );
 
 				var donutMesh = new THREE.Mesh(donut, donutMaterial);
@@ -84,7 +86,7 @@
 				// ADD TO SCENE
 				scene.add(donutMesh);
 
-				//RENDER LOOP
+				// RENDER LOOP
 				requestAnimationFrame(render);
 
 				function render() {
@@ -106,50 +108,6 @@
 
 				donut(color, posX, posY, posZ);
 			});
-
-
-			// for (item of donuts) {
-			// 	donut(item.color, item.x, item.y, item.z);
-			// }
-			// const donuts = [
-			// 	{
-			// 		color: 0xFF45A9,
-			// 		x: 300,
-			// 		y: 100,
-			// 		z: -1000
-			// 	},
-			// 	{
-			// 		color: 0x87E700,
-			// 		x: -500,
-			// 		y: -50,
-			// 		z: -1200
-			// 	},
-			// 	{
-			// 		color: 0x87E7FF,
-			// 		x: 0,
-			// 		y: -200,
-			// 		z: -2000
-			// 	},
-			// 	{
-			// 		color: 0xff0000,
-			// 		x: -50,
-			// 		y: 400,
-			// 		z: -2100
-			// 	},
-			// 	{
-			// 		color: 0x0000ff,
-			// 		x: 350,
-			// 		y: -500,
-			// 		z: -2400
-			// 	},
-			// 	{
-			// 		color: 0xff00ff,
-			// 		x: -450,
-			// 		y: 500,
-			// 		z: -2600
-			// 	}
-			// ];
-
 
 		</script>
 	</body>
