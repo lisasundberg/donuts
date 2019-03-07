@@ -39,14 +39,14 @@
 			renderer.setPixelRatio(window.devicePixelRatio);
 			renderer.setSize(window.innerWidth, window.innerHeight);
 
-			//CAMERA
+			// CAMERA
 			var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000);
 			camera.position.set(0, 0, 0);
 
-			//SCENE
+			// SCENE
 			var scene = new THREE.Scene();
 
-			//LIGHTS
+			// LIGHTS
 			var light = new THREE.AmbientLight(0xffffff, 0.5);
 			scene.add(light);
 
@@ -62,7 +62,7 @@
 			light4.position.set(1000, 1000, 100);
 			scene.add(light4);
 
-			//GEOMETRY
+			// GEOMETRY
 			function donut(color, posX, posY, posZ) {
 				var donut = new THREE.TorusGeometry(200, 100, 100, 100);
 				donutMaterial = new THREE.MeshPhysicalMaterial( {
@@ -95,15 +95,16 @@
 				}
 			}
 
-
+			// GENERATE DONUT
 			const button = document.querySelector('.button');
 
 			button.addEventListener('click', function() {
+				let color = '#'+Math.floor(Math.random()*16777215).toString(16);
 				let posX = Math.floor((Math.random() * 1999) - 999);
 				let posY = Math.floor((Math.random() * 1999) - 999);
-				let posZ = Math.floor((Math.random() * -2500) - 1000);
+				let posZ = Math.floor((Math.random() * -2000) - 1000);
 
-				donut(0xff00ff, posX, posY, posZ);
+				donut(color, posX, posY, posZ);
 			});
 
 
